@@ -8,9 +8,14 @@ background-color: aqua;
 
 #searchbox{
     width: 80%;
-    height: 50px;
+    height: 60px;
     border: none;
     
+}
+.databox{
+    width: 12.5%;
+    height: 100%;
+    border: 1px solid blue;
 }
 #locsign{
     height: 20px;
@@ -22,4 +27,25 @@ background-color: aqua;
     width: 100%;
     border: 1px solid black;
 
+}
+.graphbox{
+    margin-right: 80%;
+}
+#secondbox{
+    height: 140px;
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+}
+.imgsetting{
+    height: 50px;
+    
+}
+#thirdbox{
+    height: 400px;
+    width: 100%;
+    border: 1px solid black;
 }
