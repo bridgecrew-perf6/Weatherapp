@@ -9,9 +9,13 @@ import Chart from "react-apexcharts";
 export const Home = ()=>{
 
   let [currenttemp, setCurrent] = useState("");
+  let [pressure, setPressure] = useState("")
+  let [humid, setHumid] = useState("")
 let [city, SetCity] = useState("")
 let [hourlyFor, SetHourly] = useState([])
 let [data, SetData] = useState([])
+let [sunset, SetSunset] = useState("")
+let [sunrise, SetSunrise] = useState("")
 useEffect(()=>{
     getData()
 },[])
@@ -69,9 +73,12 @@ const getData =async ()=>{
         SetData( DailyForecast);
         
               setCurrent(DailyForecast[0].temp.day);
-        console.log(HourlyForecast, "DFdfdfd")
+        console.log(DailyForecast[0], "DFdfdfd");
+        setPressure(DailyForecast[0].pressure)
+        setHumid(DailyForecast[0].humidity)
 
-        
+        SetSunrise(DailyForecast[0].sunrise);
+        SetSunset(DailyForecast[0].sunset)
 
         let k = []
 
@@ -143,11 +150,30 @@ const handleClick = ()=>{
       </div>
       <div className="fourthbox">
         <div className="pressure">
+          <b>Pressure</b>
+          <br />
+          <p>{pressure} hpa</p>
 
         </div>
          <div className="pressure">
-
+         <b>
+          Humidity
+         </b>
+         <br />
+         <p>{humid}%</p>
          </div>
+      </div>
+      <div id="fifthbox">
+        <div id="firbox">
+          <b>Sunrise</b>
+          <br />
+          <p>{sunrise} am</p>
+        </div>
+        <div id="secbox">
+          <b>Sunset</b>
+          <br />
+          <p>{sunset} pm</p>
+        </div>
       </div>
     </div>
   );

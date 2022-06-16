@@ -45,7 +45,25 @@ background-color: aqua;
     
 }
 #thirdbox{
-    height: 400px;
+    height: 500px;
     width: 100%;
     border: 1px solid black;
+}
+.pressure{
+    border: 1px solid black;
+    width: 250px;
+    margin: 9%;
+    background-color: #F3FBFF;
+}
+.fourthbox{
+    display: flex;
+}
+#fifthbox{
+    display: flex;
+}
+#secbox{
+    margin-left: 80%;
+}
+#firbox{
+    margin-left: 2%;
 }
