@@ -69,7 +69,11 @@ margin-left: 25%;
 
 .imgsetting{
     height: 50px;
-    
+ 
+}
+.newimgsetting{
+    padding-left: 15%;
+    height: 50px;
 }
 #thirdbox{
     height: 500px;

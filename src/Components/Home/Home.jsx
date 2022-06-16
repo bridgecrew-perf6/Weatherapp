@@ -21,7 +21,8 @@ let [sunset, SetSunset] = useState("")
 let [sunrise, SetSunrise] = useState("");
 let [lat, setLat] = useState("");
 let [lon, setLon] = useState("");
-let [count, setCount] = useState(0) 
+let [count, setCount] = useState(0) ;
+let [clouds, setClouds] = useState(0);
 useEffect(()=>{
    setTimeout(()=>{
     setTrack(true)
@@ -163,20 +164,25 @@ const handleClick = ()=>{
               type="text"
               placeholder="Delhi"
             />
-            <button id="searchbtn" onClick={handleClick}>Search</button>
+            <button id="searchbtn" onClick={handleClick}>
+              Search
+            </button>
           </div>
           <div id="secondbox">
-
-
-
-    <Second data={data} Cloudy={Cloudy} Sunny={Sunny} setCurrent={setCurrent}/>
+            <Second
+              data={data}
+              Cloudy={Cloudy}
+              Sunny={Sunny}
+              setCurrent={setCurrent}
+              setClouds={setClouds}
+            />
           </div>
           <div id="thirdbox">
             <div className="graphbox">
               <b>{currenttemp}° C</b>
               <img
-                className="imgsetting"
-                src={currenttemp >= 40 ? Cloudy : Sunny}
+                className="newimgsetting"
+                src={clouds >= 50 ? Cloudy : Sunny}
                 alt=""
               />
             </div>

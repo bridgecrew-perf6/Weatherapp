@@ -1,9 +1,11 @@
-export const Second = ({data, Cloudy, Sunny, setCurrent})=>{
+export const Second = ({data, Cloudy, Sunny, setCurrent, setClouds})=>{
 
    return <>
     {   data.map((item) => (
                 <div className="databox" onClick={()=>{
                     setCurrent(item.temp.max)
+                    setClouds(item.clouds)
+
                 }}>
                   <b>{item.day}</b>
                   <br />
