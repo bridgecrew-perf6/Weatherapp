@@ -8,16 +8,24 @@ import { useState } from "react"
 import Chart from "react-apexcharts";
 export const Home = ()=>{
 
+
+  let [track, setTrack] = useState(false)
   let [currenttemp, setCurrent] = useState("");
   let [pressure, setPressure] = useState("")
   let [humid, setHumid] = useState("")
-let [city, SetCity] = useState("")
+let [city, SetCity] = useState("pune")
 let [hourlyFor, SetHourly] = useState([])
 let [data, SetData] = useState([])
 let [sunset, SetSunset] = useState("")
-let [sunrise, SetSunrise] = useState("")
+let [sunrise, SetSunrise] = useState("");
+let [lat, setLat] = useState("");
+let [lon, setLon] = useState("");
+let [count, setCount] = useState(0) 
 useEffect(()=>{
-    getData()
+   setTimeout(()=>{
+    setTrack(true)
+   }, 3000)
+    newData();
 },[])
 
 const chartData = {
@@ -38,15 +46,54 @@ const chartData = {
   ],
 };
 
+const newData = async ()=>{
+  let link
+  if (count == 0){
+ link =
+   "https://api.openweathermap.org/data/2.5/weather?q=" +
+   "delhi" +
+   "&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
+  setCount(count + 1)
+  }else {
+     link =
+       "https://api.openweathermap.org/data/2.5/weather?q=" +
+       city +
+       "&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
+
+  }
+
+ axios.get(link).then((response) => {
+  console.log(response, " respooooooonse")
+  console.log(response.data.coord.lat, " altttt ", response.data.coord.lon);
+  setLat(response.data.coord.lat)
+  setLon(response.data.coord.lon)
+  
+ });
+ getData()
+}
+
 const getData =async ()=>{
-    
-           let link =
-             "https://api.openweathermap.org/data/2.5/onecall?lat=" +
-             "28.6667" +
-             "&lon=" +
-             "77.2167" +
-             "&exclude=minutely,alerts&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
-      axios.get(link).then((response) => {
+  let link
+
+  console.log(lat, " lat ", lon, " lon")
+      if (count == 0){
+   link =
+     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+     "28.6667" +
+     "&lon=" +
+     "77.2167" +
+     "&exclude=minutely,alerts&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
+     setCount(count+1)
+      }else {
+  link =
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&exclude=minutely,alerts&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
+   
+      }
+         axios.get(link).then((response) => {
         let DailyForecast = response.data.daily;
         let HourlyForecast = response.data.hourly;
 
@@ -72,7 +119,7 @@ const getData =async ()=>{
 
         SetData( DailyForecast);
         
-              setCurrent(DailyForecast[0].temp.day);
+              setCurrent(DailyForecast[0].temp.max);
         console.log(DailyForecast[0], "DFdfdfd");
         setPressure(DailyForecast[0].pressure)
         setHumid(DailyForecast[0].humidity)
@@ -95,86 +142,90 @@ console.log(hourlyFor, "dfdfd")
 console.log(data, " data")
 console.log(currenttemp, " cureent temp")
 const handleClick = ()=>{
-    
+    newData();
+ 
 }
   return (
     <div id="mainhome">
-      <div id="box">
-        <img src={Image} alt="" id="locsign" />
-        <input
-          onChange={(e) => {
-            SetCity(e.target.value);
-            console.log(city);
-          }}
-          id="searchbox"
-          type="text"
-          placeholder="City Name"
-        />
-        <button onClick={handleClick}>Search</button>
-      </div>
-      <div id="secondbox">
-        {data.map((item) => (
-          <div className="databox">
-            <b>{item.day}</b>
-            <br />
-            <b>
-              {item.temp.max}° {item.temp.min}°{" "}
-            </b>
-            <br />
-            <img
-              className="imgsetting"
-              src={item.clouds >= 50 ? Cloudy : Sunny}
-              alt=""
+      {track == false ? (
+        <div>.....loading</div>
+      ) : (
+        <div>
+          <div id="box">
+            <img src={Image} alt="" id="locsign" />
+            <input
+              onChange={(e) => {
+                SetCity(e.target.value);
+                console.log(city, " cityyyyy");
+              }}
+              id="searchbox"
+              type="text"
+              placeholder="Delhi"
             />
-            <br />
-            {item.clouds >= 50 ? <b>Cloudy </b> : <b>Sunny</b>}
+            <button onClick={handleClick}>Search</button>
           </div>
-        ))}
-      </div>
-      <div id="thirdbox">
-        <div className="graphbox">
-          <b>{currenttemp}° C</b>
-          <img
-            className="imgsetting"
-            src={currenttemp >= 50 ? Cloudy : Sunny}
-            alt=""
-          />
-        </div>
+          <div id="secondbox">
+            {data.map((item) => (
+              <div className="databox">
+                <b>{item.day}</b>
+                <br />
+                <b>
+                  {item.temp.max}° {item.temp.min}°{" "}
+                </b>
+                <br />
+                <img
+                  className="imgsetting"
+                  src={item.clouds >= 50 ? Cloudy : Sunny}
+                  alt=""
+                />
+                <br />
+                {item.clouds >= 50 ? <b>Cloudy </b> : <b>Clear</b>}
+              </div>
+            ))}
+          </div>
+          <div id="thirdbox">
+            <div className="graphbox">
+              <b>{currenttemp}° C</b>
+              <img
+                className="imgsetting"
+                src={currenttemp >= 50 ? Cloudy : Sunny}
+                alt=""
+              />
+            </div>
 
-        <Chart
-          options={chartData.options}
-          series={chartData.series}
-          type="line"
-          width="700"
-        />
-      </div>
-      <div className="fourthbox">
-        <div className="pressure">
-          <b>Pressure</b>
-          <br />
-          <p>{pressure} hpa</p>
-
+            <Chart
+              options={chartData.options}
+              series={chartData.series}
+              type="line"
+              width="100%"
+            />
+          </div>
+          <div className="fourthbox">
+            <div className="pressure">
+              <b>Pressure</b>
+              <br />
+              <p>{pressure} hpa</p>
+            </div>
+            <div className="pressure">
+              <b>Humidity</b>
+              <br />
+              <p>{humid}%</p>
+            </div>
+          </div>
+          <div id="fifthbox">
+            <div id="firbox">
+              <b>Sunrise</b>
+              <br />
+              <p>{sunrise} am</p>
+            </div>
+            <div id="secbox">
+              <b>Sunset</b>
+              <br />
+              <p>{sunset} pm</p>
+            </div>
+          </div>
         </div>
-         <div className="pressure">
-         <b>
-          Humidity
-         </b>
-         <br />
-         <p>{humid}%</p>
-         </div>
-      </div>
-      <div id="fifthbox">
-        <div id="firbox">
-          <b>Sunrise</b>
-          <br />
-          <p>{sunrise} am</p>
-        </div>
-        <div id="secbox">
-          <b>Sunset</b>
-          <br />
-          <p>{sunset} pm</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

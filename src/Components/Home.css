@@ -1,9 +1,10 @@
 #mainhome{
    padding-top: 0px;
    margin-top: 0px;
-    width: 800px;
+    width: 50%;
     height: 1000px;
-background-color: aqua;
+
+margin-left: 25%;
 }
 
 #searchbox{
@@ -15,7 +16,7 @@ background-color: aqua;
 .databox{
     width: 12.5%;
     height: 100%;
-    border: 1px solid blue;
+ 
 }
 #locsign{
     height: 20px;
@@ -51,7 +52,7 @@ background-color: aqua;
 }
 .pressure{
     border: 1px solid black;
-    width: 250px;
+    width: 30%;
     margin: 9%;
     background-color: #F3FBFF;
 }
