@@ -163,7 +163,7 @@ const handleClick = ()=>{
               type="text"
               placeholder="Delhi"
             />
-            <button onClick={handleClick}>Search</button>
+            <button id="searchbtn" onClick={handleClick}>Search</button>
           </div>
           <div id="secondbox">
 
@@ -176,7 +176,7 @@ const handleClick = ()=>{
               <b>{currenttemp}° C</b>
               <img
                 className="imgsetting"
-                src={currenttemp >= 50 ? Cloudy : Sunny}
+                src={currenttemp >= 40 ? Cloudy : Sunny}
                 alt=""
               />
             </div>
