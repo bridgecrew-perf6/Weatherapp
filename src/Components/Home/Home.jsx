@@ -1,11 +1,12 @@
 import "./Home.css"
 import axios from "axios"
-import Image from "../Images/location-pin.png"
-import Cloudy from "../Images/cloudy.png"
-import Sunny from "../Images/sunny.png"
+import Image from "../../Images/location-pin.png"
+import Cloudy from "../../Images/cloudy.png"
+import Sunny from "../../Images/sunny.png"
 import { useEffect } from "react"
 import { useState } from "react"
 import Chart from "react-apexcharts";
+import { Second } from "../Secondbox/Second"
 export const Home = ()=>{
 
 
@@ -165,23 +166,10 @@ const handleClick = ()=>{
             <button onClick={handleClick}>Search</button>
           </div>
           <div id="secondbox">
-            {data.map((item) => (
-              <div className="databox">
-                <b>{item.day}</b>
-                <br />
-                <b>
-                  {item.temp.max}° {item.temp.min}°{" "}
-                </b>
-                <br />
-                <img
-                  className="imgsetting"
-                  src={item.clouds >= 50 ? Cloudy : Sunny}
-                  alt=""
-                />
-                <br />
-                {item.clouds >= 50 ? <b>Cloudy </b> : <b>Clear</b>}
-              </div>
-            ))}
+
+
+
+    <Second data={data} Cloudy={Cloudy} Sunny={Sunny} setCurrent={setCurrent}/>
           </div>
           <div id="thirdbox">
             <div className="graphbox">
