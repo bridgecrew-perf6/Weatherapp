@@ -7,9 +7,12 @@ import { useEffect } from "react"
 import { useState } from "react"
 import Chart from "react-apexcharts";
 import { Second } from "../Secondbox/Second"
+import { AddCity} from "../../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 export const Home = ()=>{
+const { cityname } = useSelector((state) => state.regState);
 
-
+const dispatch = useDispatch();
   let [track, setTrack] = useState(false)
   let [currenttemp, setCurrent] = useState("");
   let [pressure, setPressure] = useState("")
@@ -69,6 +72,7 @@ const newData = async ()=>{
   console.log(response.data.coord.lat, " altttt ", response.data.coord.lon);
   setLat(response.data.coord.lat)
   setLon(response.data.coord.lon)
+  dispatch(AddCity(city))
   
  });
  getData()

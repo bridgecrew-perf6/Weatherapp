@@ -55,6 +55,7 @@ margin-left: 25%;
                 margin-left: 10%;
             }
 
+                              
     /* Extra small devices (phones, 600px and down) */
 .databox {
         width: 100%;
@@ -64,6 +65,7 @@ margin-left: 25%;
 
     }
     
+   
 }
 
 
@@ -93,8 +95,8 @@ margin-left: 25%;
     display: flex;
 }
 #secbox{
-    margin-left: 80%;
+    padding-left: 80%;
 }
 #firbox{
-    margin-left: 2%;
+    padding-left: 2%;
 }
