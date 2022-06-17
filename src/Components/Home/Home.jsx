@@ -7,9 +7,10 @@ import { useEffect } from "react"
 import { useState } from "react"
 import Chart from "react-apexcharts";
 import { Second } from "../Secondbox/Second"
-import { AddCity} from "../../Redux/actions";
+import { AddCity } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 export const Home = ()=>{
+
 const { cityname } = useSelector((state) => state.regState);
 
 const dispatch = useDispatch();
@@ -57,13 +58,13 @@ const newData = async ()=>{
  link =
    "https://api.openweathermap.org/data/2.5/weather?q=" +
    "delhi" +
-   "&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
+   "&units=metric&appid=9102fcb602fc2c718391570e2dab5618";
   setCount(count + 1)
   }else {
      link =
        "https://api.openweathermap.org/data/2.5/weather?q=" +
        city +
-       "&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
+       "&units=metric&appid=9102fcb602fc2c718391570e2dab5618";
 
   }
 
@@ -72,8 +73,7 @@ const newData = async ()=>{
   console.log(response.data.coord.lat, " altttt ", response.data.coord.lon);
   setLat(response.data.coord.lat)
   setLon(response.data.coord.lon)
-  dispatch(AddCity(city))
-  
+    dispatch(AddCity(city));
  });
  getData()
 }
@@ -88,7 +88,7 @@ const getData =async ()=>{
      "28.6667" +
      "&lon=" +
      "77.2167" +
-     "&exclude=minutely,alerts&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
+     "&exclude=minutely,alerts&units=metric&appid=9102fcb602fc2c718391570e2dab5618";
      setCount(count+1)
       }else {
   link =
@@ -96,7 +96,7 @@ const getData =async ()=>{
     lat +
     "&lon=" +
     lon +
-    "&exclude=minutely,alerts&units=metric&appid=e4c70ce6a6821649a416cb9521d5f4f8";
+    "&exclude=minutely,alerts&units=metric&appid=9102fcb602fc2c718391570e2dab5618";
    
       }
          axios.get(link).then((response) => {
